@@ -40,7 +40,7 @@ react-ai-recipe-generator/
 ----------------------------
 
 ## 🧑‍💻 Tech Stack  
-- **Frontend:** React  ⚛️  
+- **Frontend:** React ⚛️  
 - **Backend:** Node.js + Express 🟢  
 - **AI Model:** OpenAI GPT API 🤖  
 - **Deployment:** Netlify (frontend), Render/Railway (backend)
@@ -56,7 +56,7 @@ git clone https://github.com/Nautiyaladitya/react-ai-recipe-generator.git
 cd react-ai-recipe-generator
 ```
 
-### 💖 Frontend Setup (React + Vite)
+### 💖 Frontend Setup (React)
 
 ```bash
 cd client
