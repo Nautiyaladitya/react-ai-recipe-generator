@@ -8,11 +8,11 @@ const OpenAI = require("openai"); // for openai@4.x
 require("dotenv").config();
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001; // Use process.env.PORT for Vercel
 
 // CORS setup to allow multiple origins (localhost and deployed frontend)
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://react-ai-recipe-generator01.vercel.app'], // Added both URLs for run locally , as well as deployed
+  origin: ['http://localhost:3000', 'https://react-ai-recipe-generator01.vercel.app'], // Added both URLs for local and deployed
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
@@ -26,8 +26,8 @@ const openai = new OpenAI({
 
 // Sample ingredient list
 const validIngredientsList = [
-  
-"chicken", "mutton", "egg", "milk", "cheese", "butter", "yogurt", "cream",
+
+   "chicken", "mutton", "egg", "milk", "cheese", "butter", "yogurt", "cream",
 "bread", "flour", "rice", "basmati rice", "brown rice", "oil", "salt", "sugar",
 "onion", "garlic", "ginger", "green chili", "red chili", "black pepper", "turmeric",
 "coriander", "cumin", "mustard seeds", "curry leaves", "asafoetida", "clove", "cardamom",
@@ -95,7 +95,7 @@ const validIngredientsList = [
 "herbes de Provence", "Italian seasoning", "cajun seasoning", "Chinese five-spice", "garam masala",
 "caramelized onions", "pickled jalapenos", "kimchi", "sriracha sauce", "mole", "tapenade", "bechamel sauce"
 
-];
+  ];
 
 // Function to suggest similar ingredients in case of incorrect input
 const suggestIngredients = (input) => {
@@ -174,7 +174,7 @@ Give a local name based on cuisine and explain steps clearly. Only use given ing
     // Make an API request to OpenAI to generate the recipe
     const stream = await openai.chat.completions.create({
       model: "gpt-4o-mini",
-      messages: [{ role: "system", content: "You are a helpful assistant." }, { role: "user", content: prompt }],
+      messages: [{ role: "system", content: "You are a helpful assistant." }, { role: "user", content: prompt }], 
       stream: true,
     });
 
@@ -194,4 +194,5 @@ Give a local name based on cuisine and explain steps clearly. Only use given ing
   }
 });
 
+// Listen on PORT (use the process.env.PORT for deployment environments like Vercel)
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
