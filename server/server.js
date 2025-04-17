@@ -20,7 +20,7 @@ const openai = new OpenAI({
 // Sample ingredient list
 const validIngredientsList = [
 
- "chicken", "mutton", "egg", "milk", "cheese", "butter", "yogurt", "cream",
+"chicken", "mutton", "egg", "milk", "cheese", "butter", "yogurt", "cream",
 "bread", "flour", "rice", "basmati rice", "brown rice", "oil", "salt", "sugar",
 "onion", "garlic", "ginger", "green chili", "red chili", "black pepper", "turmeric",
 "coriander", "cumin", "mustard seeds", "curry leaves", "asafoetida", "clove", "cardamom",
@@ -88,13 +88,14 @@ const validIngredientsList = [
 "herbes de Provence", "Italian seasoning", "cajun seasoning", "Chinese five-spice", "garam masala",
 "caramelized onions", "pickled jalapenos", "kimchi", "sriracha sauce", "mole", "tapenade", "bechamel sauce"
 
+
 ];
 
 // Function to suggest similar ingredients in case of incorrect input
 const suggestIngredients = (input) => {
   return input.map(ing => {
     const cleaned = ing.toLowerCase().trim(); // Clean and normalize the input
-    const match = similarity.findBestMatch(cleaned, validIngredientsList);  // Use string similarity to find the closest match
+    const match = similarity.findBestMatch(cleaned, validIngredientsList);  // Correct usage
 
     return {
       original: ing, // Original ingredient
@@ -117,6 +118,11 @@ function validateIngredients(input) {
   };
 }
 
+// Root route to check server status
+app.get("/", (req, res) => {
+  res.send("🍲 Recipe Generator API is running.");
+});
+
 // Recipe generation route: Handles ingredient validation, generates recipe using OpenAI
 app.get("/recipeStream", async (req, res) => {
   const { ingredients, mealType, cuisine, cookingTime, complexity } = req.query; // Extract query parameters
@@ -125,6 +131,13 @@ app.get("/recipeStream", async (req, res) => {
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
+
+  // Check for empty input
+  if (!ingredients || ingredients.trim() === "") {
+    res.write(`data: ${JSON.stringify({ action: "chunk", chunk: "⚠️ No ingredients provided. Please enter at least one." })}\n\n`);
+    res.write(`data: ${JSON.stringify({ action: "close" })}\n\n`);
+    return;
+  }
 
   // Validate the ingredients in the request
   const { invalid, suggestions } = validateIngredients(ingredients);
@@ -155,30 +168,24 @@ Give a local name based on cuisine and explain steps clearly. Only use given ing
     // Make an API request to OpenAI to generate the recipe
     const stream = await openai.chat.completions.create({
       model: "gpt-4o-mini",
-      messages: [{ role: "system", content: prompt }],
-      stream: true, // stream the response
+      messages: [{ role: "system", content: "You are a helpful assistant." }, { role: "user", content: prompt }],
+      stream: true,
     });
 
-   // Process and stream the response to the client
     for await (const chunk of stream) {
-      const delta = chunk.choices?.[0]?.delta;
-
-      if (delta?.role === "assistant") {
-        res.write(`data: ${JSON.stringify({ action: "start" })}\n\n`); // Start the streaming process
-      } else if (delta?.content) {
-        res.write(`data: ${JSON.stringify({ action: "chunk", chunk: delta.content })}\n\n`); // Send each chunk of the recipe as a part of the response
+      const content = chunk.choices?.[0]?.delta?.content;
+      if (content) {
+        res.write(`data: ${JSON.stringify({ action: "chunk", chunk: content })}\n\n`);
       }
     }
-
-    res.write(`data: ${JSON.stringify({ action: "close" })}\n\n`);  // Close the response when done
-  } catch (err) {
-    console.error("Streaming error", err);
-    res.write(`data: ${JSON.stringify({ action: "chunk", chunk: "❌ Error generating recipe." })}\n\n`); // Handle any errors that occur during the recipe generation
-    res.write(`data: ${JSON.stringify({ action: "close" })}\n\n`); // Close the response after the error
+    res.write(`data: ${JSON.stringify({ action: "close" })}\n\n`);
+    res.end();
+  } catch (error) {
+    console.error("Error generating recipe:", error);
+    res.write(`data: ${JSON.stringify({ action: "chunk", chunk: "❌ Failed to generate recipe." })}\n\n`);
+    res.write(`data: ${JSON.stringify({ action: "close" })}\n\n`);
+    res.end();
   }
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
