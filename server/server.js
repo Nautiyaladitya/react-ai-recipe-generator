@@ -4,22 +4,31 @@
 const express = require("express");
 const cors = require("cors");
 const similarity = require("string-similarity");
-const OpenAI = require("openai"); //  for openai@4.x
+const OpenAI = require("openai"); // for openai@4.x
 require("dotenv").config();
 
 const app = express();
 const PORT = 3001;
 
-app.use(cors());
+// CORS setup to allow multiple origins (localhost and deployed frontend)
+const corsOptions = {
+  origin: ['http://localhost:3000', 'https://react-ai-recipe-generator01.vercel.app'], // Added both URLs for run locally , as well as deployed
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
 
-//  OpenAI initialization for v4+
+app.use(cors(corsOptions));  // Apply this corsOptions to the server
+
+app.use(cors(corsOptions));  // Add this line to use the corsOptions
+
+// OpenAI initialization for v4+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, // API key in .env file 
 });
 
 // Sample ingredient list
 const validIngredientsList = [
-
+  
 "chicken", "mutton", "egg", "milk", "cheese", "butter", "yogurt", "cream",
 "bread", "flour", "rice", "basmati rice", "brown rice", "oil", "salt", "sugar",
 "onion", "garlic", "ginger", "green chili", "red chili", "black pepper", "turmeric",
@@ -88,14 +97,13 @@ const validIngredientsList = [
 "herbes de Provence", "Italian seasoning", "cajun seasoning", "Chinese five-spice", "garam masala",
 "caramelized onions", "pickled jalapenos", "kimchi", "sriracha sauce", "mole", "tapenade", "bechamel sauce"
 
-
 ];
 
 // Function to suggest similar ingredients in case of incorrect input
 const suggestIngredients = (input) => {
   return input.map(ing => {
     const cleaned = ing.toLowerCase().trim(); // Clean and normalize the input
-    const match = similarity.findBestMatch(cleaned, validIngredientsList);  // Correct usage
+    const match = similarity.findBestMatch(cleaned, validIngredientsList);  // Use string similarity to find the closest match
 
     return {
       original: ing, // Original ingredient
