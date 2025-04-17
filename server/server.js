@@ -19,8 +19,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));  // Apply this corsOptions to the server
 
-app.use(cors(corsOptions));  // Add this line to use the corsOptions
-
 // OpenAI initialization for v4+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, // API key in .env file 
