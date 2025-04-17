@@ -56,7 +56,7 @@ git clone https://github.com/Nautiyaladitya/react-ai-recipe-generator.git
 cd react-ai-recipe-generator
 ```
 
-### 💖 Frontend Setup (React + Vite)
+### 💖 Frontend Setup (React)
 
 ```bash
 cd client
