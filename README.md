@@ -59,6 +59,7 @@ cd client
 
 npx create-react-app recepie-gen
 
+<<<<<<< HEAD
 (b) 🚀 Run Command:
 bash npm start
 
@@ -100,6 +101,76 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY, // ✅ Use env v
 
 (g) 🚀 Run Command:
 node server.js
+=======
+2. `npx create-react-app recepie-gen`
+
+### (b) **🚀 Run Command:**
+
+bash
+```npm start```
+
+### (c) 📦 React-Icons:
+
+```npm install react-icons```
+
+### (d) 🎨 Animation and Motion:
+
+```npm install framer-motion```
+
+----------------------------
+
+### 🖧 Server Setup
+
+### (a) cd server
+
+```npm init -y (this will setup a basic application)```
+
+### (b) ⚙️ Install Dependencies:
+
+```npm install express cors openai```
+
+### (c) 🚀 Run Command:
+
+```node server.js```
+
+### (d) 🔍 Install Fuzzy Matching Dependency:
+
+(necessary for the suggestion system to work)
+```npm install string-similarity```
+
+### (e) 🍽️ Ingredient Validation:
+
+We need to validate ingredients before sending the API request.
+ ```const { invalid, suggestions } = validateIngredients(ingredients);```
+
+### (f) 🔐 API Security:
+
+It's a secure practice to store API keys in the .env file to avoid exposure.
+```const openai = new OpenAI({```
+  ```apiKey: process.env.OPENAI_API_KEY, // API key in .env file ```
+```});```
+
+
+### Install dotenv for environment variables:
+
+```npm install dotenv```
+
+### 📝 Create .env file in the server/ directory
+Add the following:
+```OPENAI_API_KEY=your_api_key_here```
+
+### 🛠️ Update server.js file:
+
+```require("dotenv").config(); // ✅ Add at the very top```
+
+```const openai = new OpenAI({```
+ ``` apiKey: process.env.OPENAI_API_KEY, // ✅ Use env variable```
+```});```
+
+### (g) 🚀 Run Command:
+
+```node server.js```
+>>>>>>> 6b41108 (� Updated README with setup & deployment instructions)
 
 📡️ Deployment
 🚀 Frontend on Netlify
@@ -109,6 +180,7 @@ Connect your repo and deploy the client/ folder
 Set the build command to npm run build and publish directory to dist/
 📌 Add environment variables in Netlify if needed
 
+<<<<<<< HEAD
 🔧 Backend on Render / Railway (optional)
 Push server/ to a separate repo (or use monorepo config)
 Deploy on Render or Railway
@@ -116,17 +188,53 @@ Set environment variables (OpenAI API Key)
 ✨ App Showcase
 📸 Screenshots
 Add UI preview screenshots here (Home, Recipe Streaming, Error Handling UI)
+=======
+### 📡️ Deployment
+>>>>>>> 6b41108 (� Updated README with setup & deployment instructions)
 
 🎥 Demo Video
 Link to a short walkthrough video or a feature tour
 
+<<<<<<< HEAD
 👌 Credits
 Made with ❤️ by Aditya Nautiyal 🧑‍💻✨
 Design inspired by clean UX and modern AI projects.
+=======
+> 📌 Add environment variables in Netlify if needed
+
+-------------------------
+
+### 🔧 Backend on Render / Railway (optional)
+1. Push `server/` to a separate repo (or use monorepo config)
+2. Deploy on [Render](https://render.com) or [Railway](https://railway.app)
+3. Set environment variables (OpenAI API Key)
+
+-------------------------
+
+## ✨ App Showcase
+
+### 📸 Screenshots  
+_Add UI preview screenshots here (Home, Recipe Streaming, Error Handling UI)_
+
+### 🎥 Demo Video  
+_Link to a short walkthrough video or a feature tour_
+
+-------------------------
+
+## 👌 Credits
+
+Made with ❤️ by [Aditya Nautiyal](https://github.com/Nautiyaladitya) 🧑‍💻✨  
+Design inspired by clean UX and modern AI projects.  
+>>>>>>> 6b41108 (� Updated README with setup & deployment instructions)
 OpenAI GPT API used under standard usage limits.
 
 🧠 Fun Tip
 Try random ingredient combos like:
+<<<<<<< HEAD
+=======
+- ```oats + banana + milk```
+- ```potato + garlic + cheese```
+>>>>>>> 6b41108 (� Updated README with setup & deployment instructions)
 
 oats + banana + milk
 potato + garlic + cheese
@@ -135,8 +243,22 @@ Let AI chef surprise you! 🧑‍🍳✨
 🌟 Show Some Love
 If you liked this project, feel free to ⭐ star the repo and share it with foodies & devs alike!
 
+<<<<<<< HEAD
 📢 License
 MIT License MIT License This project is licensed under the MIT License
+=======
+------------------------
+
+### 📢 License
+MIT License MIT License
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT)
+
+### Made with ❤️ by Aditya Nautiyal
+
+### © Copyright reserved to Aditya Nautiyal
+
+
+>>>>>>> 6b41108 (� Updated README with setup & deployment instructions)
 
 Made with ❤️ by Aditya Nautiyal
 © Copyright reserved to Aditya Nautiyal
