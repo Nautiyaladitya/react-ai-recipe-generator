@@ -12,9 +12,18 @@
     ],
     "routes": [
       {
+        "src": "/api/recipeStream",
+        "dest": "server/api/recipeStream.js"
+      },
+      {
         "src": "/(.*)",
         "dest": "server/server.js"
       }
-    ]
+    ],
+    "functions": {
+      "server/api/recipeStream.js": {
+        "runtime": "nodejs18.x"
+      }
+    }
   }
   
