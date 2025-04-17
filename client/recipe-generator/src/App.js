@@ -39,7 +39,7 @@ export default function App() {
 
     // Setting up event source to stream recipe data
     // const eventSource = new EventSource(`http://localhost:3001/recipeStream?${query}`);   // // for local host if not deployed
-    const eventSource = new EventSource(`https://react-ai-recipe-generator-9yr47y79j.vercel.app/api/recipeStream?${query}`);
+    const eventSource = new EventSource(`https://react-ai-recipe-generator.vercel.app/api/recipeStream?${query}`);
 
 
     // Handling incoming data from the server
