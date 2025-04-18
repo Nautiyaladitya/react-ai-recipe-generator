@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3001; // Use process.env.PORT for Vercel
 
 // CORS setup to allow multiple origins (localhost and deployed frontend)
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://react-ai-recipe-generator01.vercel.app'], // Added both URLs for local and deployed
+  origin: ['react-ai-recipe-generator-x3je.vercel.app', 'http://localhost:3000'], // Vercel first, then local, // Added both URLs for local and deployed
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
