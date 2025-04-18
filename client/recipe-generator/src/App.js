@@ -38,11 +38,16 @@ export default function App() {
     }).toString();
 
     // Dynamic API base (adjustable via .env), fallback to relative path for same-origin
-    const baseURL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";// For Render/Vercel deployment flexibility and local also
+    
+    // const baseURL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";// For Render/Vercel deployment flexibility and local also
+    const baseURL = process.env.REACT_APP_API_BASE_URL || window.location.hostname === "localhost"
+  ? "http://localhost:5000"
+  : "https://react-ai-recipe-generator-syjn.onrender.com";
+
 
     // Setting up event source to stream recipe data
     const eventSource = new EventSource(`${baseURL}/api/recipeStream?${query}`);
-    // const eventSource = new EventSource(`http://localhost:3001/recipeStream?${query}`);   // // for local host if not deployed
+    // const eventSource = new EventSource(`http://localhost:3001/recipeStream?${query}`);   // // for local host 
 
     // Handling incoming data from the server
     eventSource.onmessage = (event) => {
