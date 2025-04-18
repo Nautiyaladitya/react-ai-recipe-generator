@@ -6,11 +6,11 @@
 -----------------------------
 
 ## 🚀 Live Demo  
-🌐 [Try it Now](https://your-netlify-app-link.netlify.app)
+🌐 [Try it Now](https://react-ai-recipe-generator-x3je.vercel.app/)
 
-🯬 [Watch Demo Video](https://your-demo-video-link.com)
+🖼️ ![ss-gh](https://github.com/user-attachments/assets/c988f8a1-bb61-4269-8bbb-d93769afb18d)
 
-🖼️ _Add screenshots here_
+
 
 -----------------------------
 
